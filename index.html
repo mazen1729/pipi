@@ -38,6 +38,11 @@
       font-size: 50px;
       margin-top: 20px;
     }
+    /* La GIF "Yes" che appare quando si preme "Sì" */
+    #yesGif {
+      display: none;
+      margin-top: 20px;
+    }
     /* La GIF triste che occupa tutto lo schermo */
     #sadGif {
       display: none;
@@ -64,7 +69,7 @@
 <body>
   <!-- La GIF valentine-gif è sempre visibile in alto -->
   <div id="gifValentine">
-    <img src="valentine-gif.gif" alt="San Valentino" width="300px">
+    <img id="valentineGif" src="valentine-gif.gif" alt="San Valentino" width="300px">
   </div>
 
   <!-- Contenuto principale -->
@@ -79,11 +84,19 @@
     😍
   </div>
 
+  <!-- La GIF "Yes" che appare quando si preme "Sì" -->
+  <div id="yesGif">
+    <img src="yes-gif.gif" alt="Yes GIF" width="300px">
+  </div>
+
   <!-- GIF triste e sovrapposizione -->
   <div id="sadOverlay"></div>
   <img id="sadGif" src="sad.gif" alt="Sad GIF">
 
-  <!-- Audio di sottofondo -->
+  <!-- Audio di sottofondo "happy" -->
+  <audio id="happySound" src="happy.mp3" preload="auto"></audio>
+
+  <!-- Audio di sottofondo "sad" -->
   <audio id="sadSound" src="sad_sound.mp3" preload="auto"></audio>
 
   <script>
@@ -91,9 +104,12 @@
     let noButton = document.getElementById("noButton");
     let content = document.getElementById("content");
     let valentineYes = document.getElementById("valentine_yes");
+    let yesGif = document.getElementById("yesGif");
+    let valentineGif = document.getElementById("valentineGif");
     let sadGif = document.getElementById("sadGif");
     let sadOverlay = document.getElementById("sadOverlay");
     let sadSound = document.getElementById("sadSound");
+    let happySound = document.getElementById("happySound");
     let size = 20;
     let noClicks = 0;
 
@@ -113,8 +129,21 @@
 
     // Funzione per mostrare la seconda emoji e nascondere il resto
     function showValentineYes() {
-      content.style.display = "none";   // Nasconde il messaggio e i bottoni
-      valentineYes.style.display = "block"; // Mostra la seconda emoji
+      // Nasconde il messaggio e i bottoni
+      content.style.display = "none";   
+      
+      // Mostra la seconda emoji
+      valentineYes.style.display = "block"; 
+      
+      // Nasconde il bottone "No"
+      noButton.style.display = "none";
+      
+      // Nasconde la GIF "valentine-gif" e mostra la GIF "yes-gif"
+      valentineGif.style.display = "none"; 
+      yesGif.style.display = "block"; 
+      
+      // Avvia la musica "happy"
+      happySound.play();
     }
 
     // Funzione per mostrare la GIF triste e avviare la musica
